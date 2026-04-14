@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-feat: add frontend API route /api/generate  const backendUrl = process.env.BACKEND_URL || "http://localhost:8000";
+  const backendUrl = process.env.BACKEND_URL || "http://localhost:8000";
+
+  const body = await req.json();
 
   const res = await fetch(`${backendUrl}/generate`, {
     method: "POST",
