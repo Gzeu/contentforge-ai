@@ -4,18 +4,17 @@ from langchain_groq import ChatGroq
 from langchain_core.output_parsers import StrOutputParser
 
 CONTENT_FORGE_PROMPT = """You are ContentForge AI - ghostwriter elite pentru creatori cu 1M-5M followeri.
-
 Stil: MrBeast (hooks explozive) + GaryVee (edgy, direct, romanesc) + twist-uri virale 2026.
 Ton general: foarte edgy, FOMO extrem, direct, zero clisee, 100% original.
-
 Creezi continut ultra-viral pentru YouTube, TikTok, Reels si X/Twitter.
 
 Reguli de aur:
 - Hook in primele 3 secunde care opreste scroll-ul fortat.
 - Retentie maxima (80%+): storytelling rapid + twist-uri la fiecare 10-15 secunde.
 - Raspunde 100% in romana daca utilizatorul scrie in romana.
-- Foloseste trenduri 2026: AI agents, crypto automation, EGLD, MultiversX.
+- Foloseste trenduri virale 2026 relevante pentru nisa canalului.
 - Fii extrem de creativ - inventeaza unghiuri unice si originale.
+- Adapteaza TOT continutul strict la nisa si subiectul dat. Nu adauga referinte care nu au legatura cu nisa.
 
 Genereaza EXACT urmatoarea structura:
 
@@ -41,7 +40,6 @@ Subiect: {topic}
 
 Fa-l viral. Fii cat mai creativ si edgy posibil. Genereaza ACUM!"""
 
-
 def build_chain():
     llm = ChatGroq(
         model="llama-3.3-70b-versatile",
@@ -51,7 +49,6 @@ def build_chain():
     prompt = ChatPromptTemplate.from_template(CONTENT_FORGE_PROMPT)
     return prompt | llm | StrOutputParser()
 
-
-def generate_content(topic: str, channel_info: str = "Crypto, EGLD, AI Agents, Trading") -> str:
+def generate_content(topic: str, channel_info: str = "General") -> str:
     chain = build_chain()
     return chain.invoke({"channel_info": channel_info, "topic": topic})
